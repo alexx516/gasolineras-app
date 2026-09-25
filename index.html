@@ -113,7 +113,7 @@
     </main>
 
     <script>
-        // ⚠️ CONFIGURACIÓN OBLIGATORIA: Sustituye por tu URL de Cloudflare Worker
+        // URL del Cloudflare Worker (backend API)
         const WORKER_URL = "https://gasolineras-api.alejandroc2013.workers.dev";
 
         let lastCoords = null;
@@ -197,8 +197,9 @@
             showLoading("Consultando precios y análisis IA...");
             try {
                 const controller = new AbortController();
-                const timeoutId = setTimeout(() => controller.abort(), 15000);
+                const timeoutId = setTimeout(() => controller.abort(), 20000);
                 const response = await fetch(`${WORKER_URL}?lat=${lat}&lon=${lon}`, {
+                    mode: 'cors',
                     signal: controller.signal
                 });
                 clearTimeout(timeoutId);
